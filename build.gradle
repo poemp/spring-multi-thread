@@ -1,0 +1,46 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
+
+group = 'org.poem'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+
+repositories {
+    flatDir {
+        dirs "$rootProject.projectDir/libs"
+    }
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    mavenCentral()
+    jcenter()
+    mavenLocal()
+}
+
+ext{
+    jooqVersion="3.11.4"
+    postgresqlVersion="42.2.4"
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-jooq')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-starter-jooq")
+    compile("org.jooq:jooq:${jooqVersion}")
+    compile("org.jooq:jooq-meta:${jooqVersion}")
+    compile("org.jooq:jooq-codegen:${jooqVersion}")
+    compile("org.postgresql:postgresql:${postgresqlVersion}")
+}
