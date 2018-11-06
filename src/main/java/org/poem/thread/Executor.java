@@ -21,7 +21,7 @@ public class Executor {
     /**
      * 线程池
      */
-    private static final ExecutorService THREA_POOL =
+    private static final ExecutorService THREAD_POOL =
             new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2,
                     100,
                     0L, TimeUnit.MILLISECONDS,
@@ -34,10 +34,9 @@ public class Executor {
     /**
      * this class
      */
-    private static Executor executor = null;
+    private static Executor executor;
 
     static {
-        logger.info("12345");
         executor = new Executor();
     }
 
@@ -68,11 +67,11 @@ public class Executor {
      */
     public void run(ExecutorRunner<?> runner) {
         try {
-            Future<?> future = THREA_POOL.submit(runner);
+            Future<?> future = THREAD_POOL.submit(runner);
             while (!future.isDone()) {
                 future.get();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.info("executor exception:" + e.getMessage());
             runner.exception();
         }

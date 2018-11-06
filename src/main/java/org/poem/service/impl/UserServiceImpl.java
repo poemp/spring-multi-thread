@@ -4,6 +4,7 @@ import org.poem.dao.UserDao;
 import org.poem.jooq.tables.records.TUserRecord;
 import org.poem.service.IDWork;
 import org.poem.service.UserService;
+import org.poem.thread.Executor;
 import org.poem.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService {
     private IDWork<Long> idWork;
 
 
+    /**
+     * 请
+     */
     @Override
     public void insertInto()  {
         List<TUserRecord> tUserRecordList = new ArrayList<>();
@@ -40,11 +44,13 @@ public class UserServiceImpl implements UserService {
             tUserRecord.setName( Thread.currentThread().getName() );
             tUserRecordList.add(tUserRecord);
         }
-
-//        userDao.save(tUserRecordList);
+        userDao.save(tUserRecordList);
     }
 
-
+    /**
+     * 随便
+     * @return
+     */
     @Override
     public List<UserVO> getUser() {
         TUserRecord[] tUserRecords = this.userDao.select();
