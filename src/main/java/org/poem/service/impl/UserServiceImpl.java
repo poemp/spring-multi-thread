@@ -5,6 +5,8 @@ import org.poem.jooq.tables.records.TUserRecord;
 import org.poem.service.IDWork;
 import org.poem.service.UserService;
 import org.poem.vo.UserVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.stream.Stream;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserDao userDao;
 
@@ -28,13 +32,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void insertInto() {
-
-        for(int i = 0 ; i < 100 ; i++){
-            Object s = new TUserRecord();
-            System.err.println("sefvs");
+    public void insertInto()  {
+        List<TUserRecord> tUserRecordList = new ArrayList<>();
+        for(int i = 0 ; i < 11 ; i++){
+            TUserRecord tUserRecord = new TUserRecord();
+            tUserRecord.setId(idWork.getId());
+            tUserRecord.setName( Thread.currentThread().getName() );
+            tUserRecordList.add(tUserRecord);
         }
-
+//        userDao.save(tUserRecordList);
     }
 
 

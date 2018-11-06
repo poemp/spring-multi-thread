@@ -1,9 +1,11 @@
 package org.poem.api;
 
+import java.util.concurrent.Callable;
+
 /**
  * @author poem
  */
-public interface ExecutorRunner extends Runnable{
+public interface ExecutorRunner<T> extends Callable<T> {
 
 
     /**
@@ -12,7 +14,7 @@ public interface ExecutorRunner extends Runnable{
      * @throws Exception
      */
     @Override
-    void run();
+    T call() throws Exception;
 
     /**
      * 发生异常

@@ -16,16 +16,19 @@ public class Executor {
 
 
     private static final Logger logger = LoggerFactory.getLogger(Executor.class);
+
+
     /**
      * 线程池
      */
     private static final ExecutorService THREA_POOL =
-            new ThreadPoolExecutor(5, 10,
-            0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(1024),
-            new ThreadFactoryBuilder()
-                    .setNameFormat("executor-pool-%d").build(),
-            new ThreadPoolExecutor.AbortPolicy());
+            new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2,
+                    100,
+                    0L, TimeUnit.MILLISECONDS,
+                    new LinkedBlockingQueue<Runnable>(1024),
+                    new ThreadFactoryBuilder()
+                            .setNameFormat("executor-pool-%d").build(),
+                    new ThreadPoolExecutor.AbortPolicy());
 
 
     /**
@@ -33,24 +36,27 @@ public class Executor {
      */
     private static Executor executor = null;
 
+    static {
+        logger.info("12345");
+        executor = new Executor();
+    }
+
     private Executor() {
 
     }
 
     public static Executor build() {
-        if (executor == null) {
-            executor = new Executor();
-        }
-        return executor;
+        return Executor.executor;
     }
 
 
     /**
      * 多个执行
+     *
      * @param executorRunners
      */
-    public void run(List<ExecutorRunner> executorRunners){
-        if(!CollectionUtils.isEmpty(executorRunners)){
+    public void run(List<ExecutorRunner> executorRunners) {
+        if (!CollectionUtils.isEmpty(executorRunners)) {
             executorRunners.forEach(this::run);
         }
     }
@@ -60,21 +66,16 @@ public class Executor {
      *
      * @param runner
      */
-    public void run(ExecutorRunner runner) {
-        logger.info("executor start: " +runner);
-        THREA_POOL.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runner.run();
-                } catch (Exception e) {
-                    runner.exception();
-                    logger.error("executor has exception:"+ e.getMessage());
-                    e.printStackTrace();
-                }
-                logger.info("executor exit. " + runner);
+    public void run(ExecutorRunner<?> runner) {
+        try {
+            Future<?> future = THREA_POOL.submit(runner);
+            while (!future.isDone()) {
+                future.get();
             }
-        });
+        }catch (Exception e){
+            logger.info("executor exception:" + e.getMessage());
+            runner.exception();
+        }
 
     }
 

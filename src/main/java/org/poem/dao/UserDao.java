@@ -22,7 +22,7 @@ public class UserDao  {
      * @param tUserRecord
      */
     public void save(TUserRecord tUserRecord){
-        dslContext.insertInto(TUser.T_USER).values(tUserRecord);
+        dslContext.insertInto(TUser.T_USER).set(tUserRecord).execute();
     }
 
 
@@ -31,7 +31,7 @@ public class UserDao  {
      * @param tUserRecords
      */
     public void save(List<TUserRecord> tUserRecords){
-        dslContext.insertInto(TUser.T_USER).values(tUserRecords);
+        dslContext.batchInsert(tUserRecords).execute();
     }
 
 

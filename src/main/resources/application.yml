@@ -9,7 +9,3 @@ spring:
     maxPoolSize: 500
   jooq:
     sql-dialect: POSTGRES
-
-#logging:
-#  level:
-#    root: debug
