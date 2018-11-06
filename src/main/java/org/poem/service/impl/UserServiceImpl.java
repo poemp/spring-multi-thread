@@ -29,18 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertInto() {
-        List<TUserRecord> tUserRecordList = new ArrayList<>();
+
         for(int i = 0 ; i < 100 ; i++){
-            TUserRecord tUserRecord = new TUserRecord();
-            System.err.println("**" + i);
-//            tUserRecord.setId(idWork.getId());
-            tUserRecord.setName(UUID.randomUUID().toString() + "@我靠" );
-            tUserRecordList.add(tUserRecord);
+            Object s = new TUserRecord();
+            System.err.println("sefvs");
         }
-        for (TUserRecord tUserRecord : tUserRecordList) {
-            System.err.println(tUserRecord.getName());
-        }
-//        userDao.save(tUserRecordList);
+
     }
 
 
