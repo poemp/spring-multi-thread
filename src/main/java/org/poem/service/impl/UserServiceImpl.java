@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
             tUserRecord.setName( Thread.currentThread().getName() );
             tUserRecordList.add(tUserRecord);
         }
+
 //        userDao.save(tUserRecordList);
     }
 

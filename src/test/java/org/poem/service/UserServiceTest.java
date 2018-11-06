@@ -36,7 +36,6 @@ public class UserServiceTest {
                         @Override
                         public Object call(){
                             userService.insertInto();
-                            Integer.valueOf("w");
                             logger.info(Thread.currentThread().getName());
                             return new Object();
                         }
