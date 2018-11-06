@@ -4,9 +4,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.poem.api.ExecutorRunner;
 import org.poem.thread.Executor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.ApplicationContextTestUtils;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.concurrent.Future;
 
 import static org.junit.Assert.*;
 
@@ -14,36 +19,26 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UserServiceTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
     @Autowired
     UserService userService;
 
     @Test
     public void insertInto() {
-        Executor.build().run(new ExecutorRunner<Void>() {
-            @Override
-            public void init() throws Exception {
+        Executor.build().run(new ExecutorRunner() {
 
-            }
+            private UserService userService;
 
             @Override
-            public Void call() throws Exception {
-                userService.insertInto();
-                return null;
+            public void run() {
+                this.userService.insertInto();
+                logger.info("call");
             }
 
-            @Override
-            public void after() throws Exception {
-
-            }
 
             @Override
             public void exception() {
-
-            }
-
-            @Override
-            public void finall() {
-
+                logger.info("exception");
             }
         });
     }

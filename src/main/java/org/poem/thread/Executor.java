@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 /**
  * @author poem
  */
-public class Executor<T> {
+public class Executor {
 
 
     private static final Logger logger = LoggerFactory.getLogger(Executor.class);
@@ -60,19 +60,22 @@ public class Executor<T> {
      *
      * @param runner
      */
-    public Future<T> run(ExecutorRunner<T> runner) {
-        Future<T> future = null;
-        try {
-            runner.init();
-            future = THREA_POOL.submit(runner);
-            runner.after();
-        }catch (Exception e){
-            logger.error("executor has exception:"+ e.getMessage());
-            runner.exception();
-        }finally {
-            runner.finall();
-        }
-        return future;
+    public void run(ExecutorRunner runner) {
+        logger.info("executor start: " +runner);
+        THREA_POOL.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runner.run();
+                } catch (Exception e) {
+                    runner.exception();
+                    logger.error("executor has exception:"+ e.getMessage());
+                    e.printStackTrace();
+                }
+                logger.info("executor exit. " + runner);
+            }
+        });
+
     }
 
 }

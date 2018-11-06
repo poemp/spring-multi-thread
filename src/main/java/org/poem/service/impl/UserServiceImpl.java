@@ -32,12 +32,15 @@ public class UserServiceImpl implements UserService {
         List<TUserRecord> tUserRecordList = new ArrayList<>();
         for(int i = 0 ; i < 100 ; i++){
             TUserRecord tUserRecord = new TUserRecord();
-            tUserRecord.setId(idWork.getId());
+            System.err.println("**" + i);
+//            tUserRecord.setId(idWork.getId());
             tUserRecord.setName(UUID.randomUUID().toString() + "@我靠" );
             tUserRecordList.add(tUserRecord);
         }
-
-        userDao.save(tUserRecordList);
+        for (TUserRecord tUserRecord : tUserRecordList) {
+            System.err.println(tUserRecord.getName());
+        }
+//        userDao.save(tUserRecordList);
     }
 
 
