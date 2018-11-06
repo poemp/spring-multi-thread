@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,7 +30,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private IDWork<Long> idWork;
 
-
     /**
      * 请
      */
@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
             tUserRecord.setId(idWork.getId());
             tUserRecord.setName( Thread.currentThread().getName() );
             tUserRecordList.add(tUserRecord);
+            try {
+                Thread.sleep((int)(Math.random() * 1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         userDao.save(tUserRecordList);
     }
