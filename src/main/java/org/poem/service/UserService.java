@@ -1,15 +1,16 @@
 package org.poem.service;
 
-import org.poem.jooq.tables.records.TUserRecord;
-import org.poem.service.vo.UserVO;
+import org.poem.vo.UserVO;
 
 import java.util.List;
 
-public interface UserService {
+/**
+ * @author poem
+ */
+public interface UserService{
 
     /**
      * 插入
-     * @param tUserRecordList
      */
     public void insertInto();
 

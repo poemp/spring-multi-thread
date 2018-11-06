@@ -28,7 +28,7 @@ public class UserDao  {
 
     /**
      * 保存
-     * @param tUserRecord
+     * @param tUserRecords
      */
     public void save(List<TUserRecord> tUserRecords){
         dslContext.insertInto(TUser.T_USER).values(tUserRecords);

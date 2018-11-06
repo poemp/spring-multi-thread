@@ -1,4 +1,4 @@
-package org.poem.service.vo;
+package org.poem.vo;
 
 public class UserVO {
 

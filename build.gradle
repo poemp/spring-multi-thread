@@ -33,6 +33,7 @@ repositories {
 ext{
     jooqVersion="3.11.4"
     postgresqlVersion="42.2.4"
+    springBootVersion="2.1.0.RELEASE"
 }
 
 dependencies {
@@ -43,4 +44,8 @@ dependencies {
     compile("org.jooq:jooq-meta:${jooqVersion}")
     compile("org.jooq:jooq-codegen:${jooqVersion}")
     compile("org.postgresql:postgresql:${postgresqlVersion}")
+    compile("org.apache.commons:commons-lang3:3.8.1")
+    compile("org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 }

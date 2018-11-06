@@ -4,7 +4,7 @@ import org.poem.dao.UserDao;
 import org.poem.jooq.tables.records.TUserRecord;
 import org.poem.service.IDWork;
 import org.poem.service.UserService;
-import org.poem.service.vo.UserVO;
+import org.poem.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

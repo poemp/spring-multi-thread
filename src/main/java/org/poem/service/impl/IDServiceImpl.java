@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * @author poem
+ */
 @Service
 public class IDServiceImpl implements IDWork<Long> {
 
