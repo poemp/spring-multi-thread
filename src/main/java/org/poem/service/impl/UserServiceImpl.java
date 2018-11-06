@@ -4,7 +4,6 @@ import org.poem.dao.UserDao;
 import org.poem.jooq.tables.records.TUserRecord;
 import org.poem.service.IDWork;
 import org.poem.service.UserService;
-import org.poem.thread.Executor;
 import org.poem.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
