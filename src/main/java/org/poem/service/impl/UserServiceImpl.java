@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
             TUserRecord tUserRecord = new TUserRecord();
             tUserRecord.setId(idWork.getId());
             tUserRecord.setName( Thread.currentThread().getName() );
+            tUserRecord.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
             tUserRecordList.add(tUserRecord);
             try {
                 Thread.sleep((int)(Math.random() * 1000));
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
                 e.printStackTrace();
             }
         }
+        logger.info(tUserRecordList.size() + "");
         userDao.save(tUserRecordList);
     }
 

@@ -4,6 +4,7 @@
 package org.poem.jooq.tables;
 
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import org.poem.jooq.tables.records.TUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TUser extends TableImpl<TUserRecord> {
 
-    private static final long serialVersionUID = 927263491;
+    private static final long serialVersionUID = -1318471168;
 
     /**
      * The reference instance of <code>public.t_user</code>
@@ -63,6 +64,11 @@ public class TUser extends TableImpl<TUserRecord> {
      * The column <code>public.t_user.name</code>. 负责人名字
      */
     public final TableField<TUserRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50), this, "负责人名字");
+
+    /**
+     * The column <code>public.t_user.create_date_time</code>.
+     */
+    public final TableField<TUserRecord, Timestamp> CREATE_DATE_TIME = createField("create_date_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * Create a <code>public.t_user</code> table reference

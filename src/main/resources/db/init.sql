@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS "t_user";
 CREATE TABLE "t_user" (
 	"id" int8 NOT NULL,
 	"name" varchar(50) COLLATE "default",
+	"create_date_time" timestamp,
 	CONSTRAINT "t_user_pkey" PRIMARY KEY ("id") NOT DEFERRABLE INITIALLY IMMEDIATE
 )
 WITH (OIDS=FALSE);
