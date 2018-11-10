@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
                 e.printStackTrace();
             }
         }
-        logger.info(tUserRecordList.size() + "");
         userDao.save(tUserRecordList);
     }
 

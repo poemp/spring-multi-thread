@@ -1,17 +1,19 @@
 package org.poem.thread;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.poem.api.ExecutorRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
-
-import java.util.List;
-import java.util.concurrent.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Component;
 
 /**
  * @author poem
  */
+@Component
 public class Executor {
 
 
@@ -19,58 +21,26 @@ public class Executor {
 
 
     /**
-     * 线程池
+     * 自定义异步线程池
+     * @return
      */
-    private static final ExecutorService THREAD_POOL =
-            new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2,
-                    100,
-                    0L, TimeUnit.MILLISECONDS,
-                    new LinkedBlockingQueue<Runnable>(1024),
-                    new ThreadFactoryBuilder()
-                            .setNameFormat("executor-pool-%d").build(),
-                    new ThreadPoolExecutor.AbortPolicy());
-
-
-    /**
-     * this class
-     */
-    private static Executor executor;
-
-    static {
-        executor = new Executor();
+    @Bean
+    public AsyncTaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
+        executor.setMaxPoolSize(100);
+        executor.setThreadNamePrefix("async-executor-%d");
+        return executor;
     }
-
-    private Executor() {
-
-    }
-
-    public static Executor build() {
-        return Executor.executor;
-    }
-
-
-    /**
-     * 多个执行
-     *
-     * @param executorRunners
-     */
-    public void run(List<ExecutorRunner> executorRunners) {
-        if (!CollectionUtils.isEmpty(executorRunners)) {
-            executorRunners.forEach(this::run);
-        }
-    }
-
     /**
      * 开始执行
      *
      * @param runner
      */
-    public void run(ExecutorRunner<?> runner) {
+    @Async
+    public void run(ExecutorRunner runner) {
         try {
-            Future<?> future = THREAD_POOL.submit(runner);
-            while (!future.isDone()) {
-                future.get();
-            }
+            runner.run();
         } catch (Exception e) {
             logger.info("executor exception:" + e.getMessage());
             runner.exception();
