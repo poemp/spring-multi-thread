@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             tUserRecord.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
             tUserRecordList.add(tUserRecord);
             try {
-                Thread.sleep((int)(Math.random() * 1000));
+                Thread.sleep((int)(Math.random() * 800));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -65,5 +65,14 @@ public class UserServiceImpl implements UserService {
            userVO.setName(t.getName());
            return userVO;
         }).collect(Collectors.toList());
+    }
+
+
+    /**
+     * 全部删除
+     */
+    @Override
+    public void deleteAll(){
+        this.userDao.deleteAll();
     }
 }

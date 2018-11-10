@@ -20,4 +20,10 @@ public interface UserService{
      * @return
      */
     public List<UserVO> getUser();
+
+
+    /**
+     * 全部删除
+     */
+    void deleteAll();
 }

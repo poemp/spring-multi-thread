@@ -42,4 +42,11 @@ public class UserDao  {
     public TUserRecord[] select(){
         return dslContext.selectFrom(TUser.T_USER).fetchArray();
     }
+
+    /**
+     * 删除全部
+     */
+    public void deleteAll() {
+        dslContext.deleteFrom(TUser.T_USER).execute();
+    }
 }
